@@ -1,0 +1,11 @@
+# Cloudflare Workers configuration for backend
+name = "shifttrackpro-backend"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Environment variables (configure in Cloudflare Dashboard)
+# [env.production]
+# vars = { DATABASE_HOST = "your-db-host", DATABASE_PORT = "3306" }
+
+# Note: For full NestJS deployment, consider using Cloudflare Pages Functions
+# or deploy to a Docker-compatible platform like Fly.io or Railway
