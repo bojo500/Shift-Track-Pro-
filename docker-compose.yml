@@ -47,19 +47,30 @@ services:
       JWT_EXPIRATION: 7d
       NODE_ENV: production
       PORT: 3000
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     depends_on:
       - mysql
     networks:
       - shifttrackpro_network
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: shifttrackpro_frontend
+    restart: always
+    expose:
+      - "80"
+    depends_on:
+      - backend
+    networks:
+      - shifttrackpro_network
 
 volumes:
   mysql_data:
 
 networks:
   shifttrackpro_network:
-    driver: bridge
+    name: npm_proxy
+    external: true
