@@ -3,19 +3,19 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package.json ./
 
-# Install dependencies
+# Install ALL dependencies (including devDependencies for build)
 RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
 
-# Create production .env
-RUN echo "VITE_API_URL=/api" > .env
+# Set environment variable for build
+ENV VITE_API_URL=/api
 
-# Build the application (vite only, skip TypeScript checking)
-RUN npx vite build --mode production
+# Build the application (Vite only, no TS checking)
+RUN npm run build:docker
 
 # Production stage with nginx
 FROM nginx:alpine
