@@ -72,5 +72,4 @@ volumes:
 
 networks:
   shifttrackpro_network:
-    name: npm_proxy
-    external: true
+    driver: bridge
