@@ -14,8 +14,8 @@ COPY . .
 # Create production .env
 RUN echo "VITE_API_URL=/api" > .env
 
-# Build the application (skip type checking if it fails)
-RUN npx vite build
+# Build the application (vite only, skip TypeScript checking)
+RUN npx vite build --mode production
 
 # Production stage with nginx
 FROM nginx:alpine
