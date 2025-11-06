@@ -17,17 +17,5 @@ RUN npm run build
 # Expose port
 EXPOSE 3000
 
-# Create startup script that syncs DB and seeds data
-RUN echo '#!/bin/sh\n\
-echo "Waiting for database..."\n\
-sleep 10\n\
-echo "Initializing database schema and seeding data..."\n\
-node -e "const dataSource = require(\"./dist/config/typeorm.config\").default; dataSource.initialize().then(async () => { console.log(\"Database schema synced\"); await dataSource.destroy(); }).catch(err => console.error(err));" || echo "Schema sync skipped"\n\
-sleep 2\n\
-npm run seed || echo "Seed failed or already exists"\n\
-echo "Starting application..."\n\
-npm run start:prod\n\
-' > /app/start.sh && chmod +x /app/start.sh
-
 # Start the application
-CMD ["/app/start.sh"]
+CMD sh -c "echo 'Waiting for database...' && sleep 10 && echo 'Initializing database schema and seeding data...' && node -e \"const dataSource = require('./dist/config/typeorm.config').default; dataSource.initialize().then(async () => { console.log('Database schema synced'); await dataSource.destroy(); }).catch(err => console.error(err));\" || echo 'Schema sync skipped' && sleep 2 && npm run seed || echo 'Seed failed or already exists' && echo 'Starting application...' && npm run start:prod"
