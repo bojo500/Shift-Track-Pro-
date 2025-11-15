@@ -47,7 +47,7 @@ services:
       JWT_EXPIRATION: 7d
       NODE_ENV: production
       PORT: 3000
-      CORS_ORIGINS: http://162.120.17.173:8081,http://162.120.17.173,http://localhost:5173
+      CORS_ORIGINS: http://162.120.17.173:8081,https://stp1.mk-codes.com,http://localhost:5173
     ports:
       - "3000:3000"
     depends_on:
