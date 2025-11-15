@@ -10,6 +10,10 @@ async function seed() {
     await dataSource.initialize();
     console.log('Database connection initialized');
 
+    // Run migrations or synchronize schema
+    await dataSource.synchronize();
+    console.log('Database schema synchronized');
+
     const roleRepo = dataSource.getRepository(Role);
     const sectionRepo = dataSource.getRepository(Section);
     const shiftRepo = dataSource.getRepository(Shift);
