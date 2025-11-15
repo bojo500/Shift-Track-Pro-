@@ -18,4 +18,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the application
-CMD sh -c "echo 'Waiting for database...' && sleep 20 && npm run seed || echo 'Seed failed or already exists' && echo 'Starting application...' && npm run start:prod"
+CMD sh -c "echo 'Waiting for database...' && sleep 20 && node dist/database/seeds/seed.js || echo 'Seed failed or already exists' && echo 'Starting application...' && npm run start:prod"
