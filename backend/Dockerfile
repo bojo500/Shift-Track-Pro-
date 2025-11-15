@@ -18,4 +18,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Start the application
-CMD sh -c "echo 'Waiting for database...' && sleep 10 && echo 'Initializing database schema and seeding data...' && node -e \"const dataSource = require('./dist/config/typeorm.config').default; dataSource.initialize().then(async () => { console.log('Database schema synced'); await dataSource.destroy(); }).catch(err => console.error(err));\" || echo 'Schema sync skipped' && sleep 2 && npm run seed || echo 'Seed failed or already exists' && echo 'Starting application...' && npm run start:prod"
+CMD sh -c "echo 'Waiting for database...' && sleep 20 && npm run seed || echo 'Seed failed or already exists' && echo 'Starting application...' && npm run start:prod"
